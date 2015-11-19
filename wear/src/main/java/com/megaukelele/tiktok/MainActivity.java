@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.BoxInsetLayout;
 import android.view.View;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +25,7 @@ public class MainActivity extends WearableActivity {
         setContentView(R.layout.activity_main);
         setAmbientEnabled();
 
-        NumberPicker np = (NumberPicker) findViewById(R.id.numberPicker);
+        BPMPicker np = (BPMPicker) findViewById(R.id.numberPicker);
         np.setMaxValue(100);
         np.setMinValue(0);
         np.setWrapSelectorWheel(false);
@@ -64,4 +63,5 @@ public class MainActivity extends WearableActivity {
             mClockView.setVisibility(View.GONE);
         }
     }
+
 }

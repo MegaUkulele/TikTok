@@ -24,14 +24,12 @@
             android:background="@drawable/play"
             android:layout_gravity="center_horizontal" />
 
-        <NumberPicker
+        <com.megaukelele.tiktok.BPMPicker
             android:layout_margin="10dp"
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:id="@+id/numberPicker"
-            style="@style/TextAppearance.Wearable.Medium"
-            android:theme="AppTheme" />
-
+            style="@style/TextAppearance.Wearable.Medium" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
