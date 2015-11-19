@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.BoxInsetLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:id="@+id/container" tools:context=".MainActivity"
-    tools:deviceIds="wear">
+    android:layout_height="match_parent" tools:context="com.godwinlaw.yourfault.ShakeActivity"
+    tools:deviceIds="wear_round" android:background="@color/black">
 
-    <TextView android:id="@+id/text" app:layout_box="all" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:text="@string/hello_world" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/llDisplay"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:textAlignment="center">
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:text=""
+            android:id="@+id/button"
+            android:background="@drawable/play"
+            android:layout_gravity="center_horizontal" />
 
-    <TextView android:id="@+id/clock" app:layout_box="all" android:layout_gravity="bottom|start"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:textColor="@android:color/white" />
+        <NumberPicker
+            android:layout_margin="10dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:id="@+id/numberPicker"
+            style="@style/TextAppearance.Wearable.Medium"
+            android:theme="AppTheme" />
 
-</android.support.wearable.view.BoxInsetLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tap_instr"
+            android:id="@+id/textView"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:layout_below="@+id/llDisplay"
+            android:layout_alignStart="@+id/llDisplay"
+            android:editable="true"
+            android:elegantTextHeight="true" />
+
+    </LinearLayout>
+</RelativeLayout>
