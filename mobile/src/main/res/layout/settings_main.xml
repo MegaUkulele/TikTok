@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:textAlignment="textStart"
     android:background="#010101">
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/advancedsettings"
+        android:id="@+id/backtomain"/>
 
     <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
         android:layout_height="wrap_content"

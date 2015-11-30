@@ -11,12 +11,15 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity"
     android:background="#011021">
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/homeactivity"
+            android:id="@+id/imagesettings"/>
         <TextView android:text="Tik Tok" android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
