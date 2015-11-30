@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textAlignment="textStart"
+    android:background="#010101">
+
+    <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:textSize="32dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Main Menu"
+        android:background="#1ED760"
+        android:id="@+id/back"
+        android:layout_margin="10dp"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal" />
+    <TextView android:text="Select a watch face" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="16dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@mipmap/glow"
+            android:id="@+id/watch_face1"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Face 2"
+            android:background="#1ED760"
+            android:id="@+id/watch_face2"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Face 3"
+            android:background="#1ED760"
+            android:id="@+id/watch_face3"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+    <TextView android:text="Set multiple tempos" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="16dp"/>
+    <TextView android:text="first tempo" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="12dp"/>
+    <NumberPicker
+        android:layout_margin="10dp"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:id="@+id/firsttempo" />
+    <TextView android:text="second tempo" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="12dp"/>
+    <NumberPicker
+        android:layout_margin="10dp"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:id="@+id/secondtempo" />
+</LinearLayout>
