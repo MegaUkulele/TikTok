@@ -2,66 +2,89 @@ package com.megaukelele.tiktok;
 
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
-import android.support.wearable.view.BoxInsetLayout;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.widget.Button;
+import android.widget.ImageView;
 
 public class MainActivity extends WearableActivity {
 
-    private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
-            new SimpleDateFormat("HH:mm", Locale.US);
+    private static final String TAG = "MainActivity";
 
-    private BoxInsetLayout mContainerView;
-    private TextView mTextView;
-    private TextView mClockView;
+    private ImageView mGlowingCircle;
+    private Button mPlayButton;
+    private BPMPicker mBPMPicker;
+    private boolean playing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setAmbientEnabled();
 
-        BPMPicker np = (BPMPicker) findViewById(R.id.numberPicker);
-        np.setMaxValue(100);
-        np.setMinValue(0);
-        np.setWrapSelectorWheel(false);
+        playing = false;
+        mBPMPicker = (BPMPicker) findViewById(R.id.numberPicker);
+        mBPMPicker.setMinValue(30);
+        mBPMPicker.setMaxValue(200);
+        mBPMPicker.setValue(120);
+        mBPMPicker.setWrapSelectorWheel(false);
 
+        final AnimationSet mAnimationSet = new AnimationSet(true);
+        Animation grow, shrink;
+
+        mGlowingCircle = (ImageView) findViewById(R.id.ivCircle);
+        mPlayButton = (Button) findViewById(R.id.btnPlay);
+
+        mPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (playing) {
+                    mGlowingCircle.clearAnimation();
+                } else {
+                    mGlowingCircle.startAnimation(mAnimationSet);
+                }
+                playing = !playing;
+            }
+        });
+        long duration = 500;
+
+        grow = new ScaleAnimation( 0.5f, 1.0f, 0.5f, 1.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
+        //grow.setDuration((long) (60 * 0.5 / 120));
+        //grow.setFillEnabled(true);
+        grow.setDuration(duration);
+        //grow.setRepeatMode(Animation.INFINITE);
+        mAnimationSet.addAnimation(grow);
+
+        shrink = new ScaleAnimation( 1.0f, 0.5f, 1.0f, 0.5f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
+        //shrink.setDuration((long) (60 * 0.5 / 120));
+        //shrink.setFillEnabled(true);
+        shrink.setDuration(duration);
+        shrink.setStartOffset(grow.getDuration());
+        //shrink.setRepeatMode(Animation.INFINITE);
+        mAnimationSet.addAnimation(shrink);
+        mAnimationSet.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.e(TAG, "Animation started");
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.e(TAG, "Animation ended");
+                animation.start();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                Log.e(TAG, "Animation repeated");
+            }
+        });
+
+        mAnimationSet.setRepeatMode(Animation.INFINITE);
+        mGlowingCircle.setAnimation(mAnimationSet);
+        mAnimationSet.start();
+        //mGlowingCircle.startAnimation(mAnimationSet);
     }
-
-    @Override
-    public void onEnterAmbient(Bundle ambientDetails) {
-        super.onEnterAmbient(ambientDetails);
-        updateDisplay();
-    }
-
-    @Override
-    public void onUpdateAmbient() {
-        super.onUpdateAmbient();
-        updateDisplay();
-    }
-
-    @Override
-    public void onExitAmbient() {
-        updateDisplay();
-        super.onExitAmbient();
-    }
-
-    private void updateDisplay() {
-        if (isAmbient()) {
-            mContainerView.setBackgroundColor(getResources().getColor(android.R.color.black));
-            mTextView.setTextColor(getResources().getColor(android.R.color.white));
-            mClockView.setVisibility(View.VISIBLE);
-
-            mClockView.setText(AMBIENT_DATE_FORMAT.format(new Date()));
-        } else {
-            mContainerView.setBackground(null);
-            mTextView.setTextColor(getResources().getColor(android.R.color.black));
-            mClockView.setVisibility(View.GONE);
-        }
-    }
-
 }

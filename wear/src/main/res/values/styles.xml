@@ -3,4 +3,5 @@
     <style name="AppTheme" parent="@android:style/Theme.DeviceDefault">
         <item name="android:textColorPrimary">#ffffff</item>
     </style>
+
 </resources>

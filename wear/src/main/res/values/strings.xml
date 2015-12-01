@@ -2,4 +2,5 @@
     <string name="app_name">Tik Tok</string>
     <string name="tap_instr">TAP to set BPM</string>
     <string name="BPM">BPM</string>
+    <color name="watch_background">#303642</color>
 </resources>

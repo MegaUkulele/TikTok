@@ -2,6 +2,7 @@ package com.megaukelele.tiktok;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -19,9 +20,30 @@ public class BPMPicker extends NumberPicker {
     @Override
     public void addView(View child) {
         super.addView(child);
-        if(child instanceof EditText) {
-            ((EditText) child).setTextSize(100);
-            ((EditText) child).setTextColor(Color.WHITE);
+        updateView(child);
+    }
+
+    @Override
+    public void addView(View child, int index, android.view.ViewGroup.LayoutParams params) {
+        super.addView(child, index, params);
+        updateView(child);
+    }
+
+    @Override
+    public void addView(View child, android.view.ViewGroup.LayoutParams params) {
+        super.addView(child, params);
+        updateView(child);
+    }
+
+    private void updateView(View view) {
+
+        if(view instanceof EditText){
+            //TableLayout.LayoutParams params = new TableLayout.LayoutParams();
+            //params.setMargins(15, 15, 15, 15);
+            //((EditText) view).setLayoutParams(params);
+            ((EditText) view).setTextSize(30);
+            ((EditText) view).setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
+            ((EditText) view).setTextColor(Color.parseColor("#ffffff"));
         }
     }
 }
