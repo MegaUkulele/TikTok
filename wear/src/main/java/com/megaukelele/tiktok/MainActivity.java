@@ -5,10 +5,10 @@ import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 
 public class MainActivity extends WearableActivity {
 
@@ -18,6 +18,7 @@ public class MainActivity extends WearableActivity {
     private Button mPlayButton;
     private BPMPicker mBPMPicker;
     private boolean playing;
+    private Animation growAnimation, shrinkAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,60 +32,73 @@ public class MainActivity extends WearableActivity {
         mBPMPicker.setValue(120);
         mBPMPicker.setWrapSelectorWheel(false);
 
-        final AnimationSet mAnimationSet = new AnimationSet(true);
-        Animation grow, shrink;
-
         mGlowingCircle = (ImageView) findViewById(R.id.ivCircle);
         mPlayButton = (Button) findViewById(R.id.btnPlay);
+
+        int bpm = mBPMPicker.getValue();
+        Log.e(TAG, String.valueOf(bpm));
+        setGlowingRate(bpm);
 
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (playing) {
                     mGlowingCircle.clearAnimation();
+                    mPlayButton.setBackgroundResource(R.drawable.play);
                 } else {
-                    mGlowingCircle.startAnimation(mAnimationSet);
+                    mGlowingCircle.startAnimation(shrinkAnimation);
+                    mPlayButton.setBackgroundResource(R.drawable.pause);
                 }
                 playing = !playing;
             }
         });
-        long duration = 500;
 
-        grow = new ScaleAnimation( 0.5f, 1.0f, 0.5f, 1.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
-        //grow.setDuration((long) (60 * 0.5 / 120));
-        //grow.setFillEnabled(true);
-        grow.setDuration(duration);
-        //grow.setRepeatMode(Animation.INFINITE);
-        mAnimationSet.addAnimation(grow);
+        mBPMPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                setGlowingRate(oldVal);
+            }
+        });
+    }
 
-        shrink = new ScaleAnimation( 1.0f, 0.5f, 1.0f, 0.5f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
-        //shrink.setDuration((long) (60 * 0.5 / 120));
-        //shrink.setFillEnabled(true);
-        shrink.setDuration(duration);
-        shrink.setStartOffset(grow.getDuration());
-        //shrink.setRepeatMode(Animation.INFINITE);
-        mAnimationSet.addAnimation(shrink);
-        mAnimationSet.setAnimationListener(new Animation.AnimationListener() {
+    private void setGlowingRate(int bpm) {
+        long duration = (long) (1.0 / bpm * 60 * 0.5 * 1000);
+
+        growAnimation = new ScaleAnimation( 0.5f, 1.0f, 0.5f, 1.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
+        growAnimation.setDuration(duration);
+
+        shrinkAnimation = new ScaleAnimation( 1.0f, 0.5f, 1.0f, 0.5f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
+        shrinkAnimation.setDuration(duration);
+
+        growAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                Log.e(TAG, "Animation started");
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Log.e(TAG, "Animation ended");
-                animation.start();
+                if (playing) mGlowingCircle.startAnimation(shrinkAnimation);
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.e(TAG, "Animation repeated");
             }
         });
+        shrinkAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
 
-        mAnimationSet.setRepeatMode(Animation.INFINITE);
-        mGlowingCircle.setAnimation(mAnimationSet);
-        mAnimationSet.start();
-        //mGlowingCircle.startAnimation(mAnimationSet);
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (playing) mGlowingCircle.startAnimation(growAnimation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
     }
+
+
 }
