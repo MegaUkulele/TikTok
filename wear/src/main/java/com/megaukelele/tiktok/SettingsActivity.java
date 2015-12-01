@@ -3,25 +3,56 @@ package com.megaukelele.tiktok;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
 public class SettingsActivity extends Activity {
+    private static final String TAG = "SettingsActivity";
+    private float x1,x2;
+    static final int MIN_DISTANCE = 150;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ImageButton btn_temp = (ImageButton)findViewById(R.id.imageSettingsWear);
-        btn_temp.setOnClickListener(new View.OnClickListener() {
+
+        btn_temp.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(
-                        SettingsActivity.this,
-                        MainActivity.class);
-                startActivity(i);
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        x2 = event.getX();
+                        float deltaX = x2 - x1;
+                        if (Math.abs(deltaX) > MIN_DISTANCE) {
+                            if (x1 > x2) {
+                                // swipe left
+
+                            } else {
+                                // swipe right
+                                Log.d(TAG, "swipe right!");
+                                Intent i = new Intent(
+                                        SettingsActivity.this,
+                                        MainActivity.class);
+                                startActivity(i);
+                            }
+
+                        } else {
+                            // consider as something else - a screen tap for example
+                        }
+                        break;
+                }
+
+                return true;
             }
         });
     }

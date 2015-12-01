@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -66,17 +67,40 @@ public class MainActivity extends WearableActivity {
         });
 
         mTapPrompt = (TextView) findViewById(R.id.textView);
-
-        mTapPrompt.setOnClickListener(new View.OnClickListener() {
+        
+        mTapPrompt.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Log.d(TAG, "tapPrompt click!");
-                Intent i=new Intent(
-                        MainActivity.this,
-                        SettingsActivity.class);
-                startActivity(i);
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch(event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        x2 = event.getX();
+                        float deltaX = x2 - x1;
+                        if (Math.abs(deltaX) > MIN_DISTANCE)  {
+                            if (x1 > x2) {
+                                // swipe left
+                                Log.d(TAG, "swipe left!");
+                                Intent i=new Intent(
+                                        MainActivity.this,
+                                        SettingsActivity.class);
+                                startActivity(i);
+                            } else {
+                                // swipe right
+                            }
+
+                        } else {
+                            // consider as something else - a screen tap for example
+                        }
+                        break;
+                }
+
+                return true;
             }
         });
+
     }
 
     private void setGlowingRate(int bpm) {
