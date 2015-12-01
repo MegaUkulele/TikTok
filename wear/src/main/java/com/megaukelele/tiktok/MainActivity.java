@@ -1,5 +1,6 @@
 package com.megaukelele.tiktok;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 public class MainActivity extends WearableActivity {
 
@@ -17,8 +19,11 @@ public class MainActivity extends WearableActivity {
     private ImageView mGlowingCircle;
     private Button mPlayButton;
     private BPMPicker mBPMPicker;
+    private TextView mTapPrompt;
     private boolean playing;
     private Animation growAnimation, shrinkAnimation;
+    private float x1,x2;
+    static final int MIN_DISTANCE = 150;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,19 @@ public class MainActivity extends WearableActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 setGlowingRate(oldVal);
+            }
+        });
+
+        mTapPrompt = (TextView) findViewById(R.id.textView);
+
+        mTapPrompt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "tapPrompt click!");
+                Intent i=new Intent(
+                        MainActivity.this,
+                        SettingsActivity.class);
+                startActivity(i);
             }
         });
     }

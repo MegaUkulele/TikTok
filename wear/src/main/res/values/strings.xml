@@ -3,4 +3,8 @@
     <string name="tap_instr">TAP to set BPM</string>
     <string name="BPM">BPM</string>
     <color name="watch_background">#303642</color>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
