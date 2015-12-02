@@ -62,7 +62,7 @@ public class SettingsActivity extends Activity {
                             if (x1 > x2) {
                                 // swipe left
                                 Log.d(TAG, "swipe left!");
-
+                                toggleUserTempos();
                             } else {
                                 // swipe right
                                 Intent i = new Intent(
