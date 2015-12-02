@@ -67,7 +67,7 @@ public class MainActivity extends WearableActivity {
         });
 
         mTapPrompt = (TextView) findViewById(R.id.textView);
-        
+
         mTapPrompt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -82,7 +82,6 @@ public class MainActivity extends WearableActivity {
                         if (Math.abs(deltaX) > MIN_DISTANCE)  {
                             if (x1 > x2) {
                                 // swipe left
-                                Log.d(TAG, "swipe left!");
                                 Intent i=new Intent(
                                         MainActivity.this,
                                         SettingsActivity.class);

@@ -3,7 +3,6 @@ package com.megaukelele.tiktok;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -39,7 +38,6 @@ public class SettingsActivity extends Activity {
 
                             } else {
                                 // swipe right
-                                Log.d(TAG, "swipe right!");
                                 Intent i = new Intent(
                                         SettingsActivity.this,
                                         MainActivity.class);
