@@ -1,6 +1,9 @@
 package com.megaukelele.tiktok;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
@@ -20,6 +23,8 @@ public class MainActivity extends WearableActivity {
 
     private static final String TAG = "MainActivity";
 
+    public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
+
     private ImageView mGlowingCircle;
     private Button mPlayButton;
     private BPMPicker mBPMPicker;
@@ -28,6 +33,7 @@ public class MainActivity extends WearableActivity {
     private Animation growAnimation, shrinkAnimation;
     private float x1,x2;
     static final int MIN_DISTANCE = 150;
+    private IntentFilter mIntentFilter;
 
     //tap BPM variables
     static final int timeout = 2000;
@@ -75,12 +81,12 @@ public class MainActivity extends WearableActivity {
         tapBPMButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long time= System.currentTimeMillis();
+                long time = System.currentTimeMillis();
                 int currentTime = (int) time;
                 if (currentTime - previousTime > timeout) {
                     averageArray.clear();
                     averageArray.add(currentTime);
-                    count  = 1;
+                    count = 1;
                 } else {
                     if (count >= 1) {
                         averageArray.add(currentTime);
@@ -109,17 +115,17 @@ public class MainActivity extends WearableActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                switch(event.getAction()) {
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
                         break;
                     case MotionEvent.ACTION_UP:
                         x2 = event.getX();
                         float deltaX = x2 - x1;
-                        if (Math.abs(deltaX) > MIN_DISTANCE)  {
+                        if (Math.abs(deltaX) > MIN_DISTANCE) {
                             if (x1 > x2) {
                                 // swipe left
-                                Intent i=new Intent(
+                                Intent i = new Intent(
                                         MainActivity.this,
                                         SettingsActivity.class);
                                 startActivity(i);
@@ -137,6 +143,21 @@ public class MainActivity extends WearableActivity {
             }
         });
 
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(mToggleUserTempos);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(mReceiver, mIntentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(mReceiver);
+        super.onPause();
     }
 
     private void setGlowingRate(int bpm) {
@@ -188,4 +209,16 @@ public class MainActivity extends WearableActivity {
         }
         return sum;
     }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "received broadcast at MainActivity");
+
+            if (intent.getAction().equals(mToggleUserTempos)) {
+                mTapPrompt = (TextView) findViewById(R.id.textView);
+                mTapPrompt.setText("User Tempos");
+            }
+        }
+    };
 }

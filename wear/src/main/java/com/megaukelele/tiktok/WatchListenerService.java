@@ -1,5 +1,6 @@
 package com.megaukelele.tiktok;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -32,6 +33,10 @@ public class WatchListenerService extends WearableListenerService implements Mes
     @Override
     public void onMessageReceived(MessageEvent messageEvent){
         Log.d(TAG,"message received");
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(MainActivity.mToggleUserTempos);
+        sendBroadcast(broadcastIntent);
     }
 
     @Override
