@@ -71,4 +71,20 @@
         android:layout_alignBottom="@+id/llDisplay"
         android:layout_toEndOf="@+id/llDisplay" />
 
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/tapBPMButton"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/tap_bpm_circle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/tapBPMButton"
+        android:layout_alignStart="@+id/llDisplay" />
+
 </RelativeLayout>
