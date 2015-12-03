@@ -105,6 +105,7 @@ public class MainActivity extends WearableActivity {
                     int average = sum / differences.size();
                     int bpm = 60000 / average;
                     setGlowingRate(bpm);
+                    mBPMPicker.setValue(bpm);
                 }
 
             }
