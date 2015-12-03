@@ -39,7 +39,7 @@ public class MainActivity extends WearableActivity {
     static final int timeout = 2000;
     private ImageButton tapBPMButton;
     private int previousTime = 0;
-    private ArrayList<Integer> averageArray = new ArrayList<Integer>();
+    private ArrayList<Integer> tapTimes = new ArrayList<Integer>();
     private int count = 0;
     //
 
@@ -84,21 +84,29 @@ public class MainActivity extends WearableActivity {
                 long time = System.currentTimeMillis();
                 int currentTime = (int) time;
                 if (currentTime - previousTime > timeout) {
-                    averageArray.clear();
-                    averageArray.add(currentTime);
-                    count = 1;
-                } else {
-                    if (count >= 1) {
-                        averageArray.add(currentTime);
-                        count += 1;
-                        int average_bpm = averageBPM(averageArray);
-
-                        setGlowingRate(average_bpm);
-                        mGlowingCircle.startAnimation(shrinkAnimation);
-                        mPlayButton.setBackgroundResource(R.drawable.pause);
-                    }
+                    tapTimes.clear();
                 }
+                tapTimes.add(currentTime);
                 previousTime = currentTime;
+
+                if (tapTimes.size() > 1) {
+                    int last = tapTimes.remove(0);
+                    ArrayList<Integer> differences = new ArrayList<Integer>();
+                    for (Integer tapTime: tapTimes) {
+                        differences.add(tapTime - last);
+                        last = tapTime;
+                    }
+                    int sum = 0;
+
+                    for (Integer d: differences) {
+                        sum += d;
+                    }
+
+                    int average = sum / differences.size();
+                    int bpm = 60000 / average;
+                    setGlowingRate(bpm);
+                }
+
             }
         });
 
@@ -172,6 +180,7 @@ public class MainActivity extends WearableActivity {
         growAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                // do tap and vibration
             }
 
             @Override
@@ -197,17 +206,6 @@ public class MainActivity extends WearableActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-    }
-
-    private int averageBPM(ArrayList<Integer> array) {
-        int sum = 0;
-        if (!array.isEmpty()) {
-            int size = array.size();
-            sum = array.get(size - 1) - array.get(0);
-            float average = (size * 6000) / sum;
-            return (int) average;
-        }
-        return sum;
     }
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
