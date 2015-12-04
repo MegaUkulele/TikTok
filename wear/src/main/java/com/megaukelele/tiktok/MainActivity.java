@@ -185,8 +185,6 @@ public class MainActivity extends WearableActivity {
         growAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                // do tap and vibration
-                vibrator.vibrate(vibrationPattern, repeateVibration);
             }
 
             @Override
@@ -201,6 +199,8 @@ public class MainActivity extends WearableActivity {
         shrinkAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                // do tap and vibration
+                vibrator.vibrate(vibrationPattern, repeateVibration);
             }
 
             @Override
