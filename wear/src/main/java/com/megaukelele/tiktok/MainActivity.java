@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -24,6 +25,8 @@ public class MainActivity extends WearableActivity {
     private static final String TAG = "MainActivity";
 
     public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
+    private final long[] vibrationPattern = {0, 300};
+    private final int repeateVibration = -1;
 
     private ImageView mGlowingCircle;
     private Button mPlayButton;
@@ -34,6 +37,7 @@ public class MainActivity extends WearableActivity {
     private float x1,x2;
     static final int MIN_DISTANCE = 150;
     private IntentFilter mIntentFilter;
+    private Vibrator vibrator;
 
     //tap BPM variables
     static final int timeout = 2000;
@@ -59,6 +63,7 @@ public class MainActivity extends WearableActivity {
         mPlayButton = (Button) findViewById(R.id.btnPlay);
 
         tapBPMButton = (ImageButton) findViewById(R.id.tapBPMButton);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         int bpm = mBPMPicker.getValue();
         Log.e(TAG, String.valueOf(bpm));
@@ -107,7 +112,6 @@ public class MainActivity extends WearableActivity {
                     setGlowingRate(bpm);
                     mBPMPicker.setValue(bpm);
                 }
-
             }
         });
 
@@ -182,6 +186,7 @@ public class MainActivity extends WearableActivity {
             @Override
             public void onAnimationStart(Animation animation) {
                 // do tap and vibration
+                vibrator.vibrate(vibrationPattern, repeateVibration);
             }
 
             @Override
