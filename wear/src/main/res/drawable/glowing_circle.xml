@@ -2,13 +2,12 @@
 <shape
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-
-
+    
     <solid
         android:color="@color/watch_background" />
     <gradient
         android:type="radial"
-        android:gradientRadius="60"
+        android:gradientRadius="130"
         android:centerX=".5"
         android:centerY=".5"
         android:startColor="#0eed85"

@@ -176,10 +176,10 @@ public class MainActivity extends WearableActivity {
     private void setGlowingRate(int bpm) {
         long duration = (long) (1.0 / bpm * 60 * 0.5 * 1000);
 
-        growAnimation = new ScaleAnimation( 0.5f, 1.0f, 0.5f, 1.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
+        growAnimation = new ScaleAnimation( 0.3f, 1.0f, 0.3f, 1.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
         growAnimation.setDuration(duration);
 
-        shrinkAnimation = new ScaleAnimation( 1.0f, 0.5f, 1.0f, 0.5f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
+        shrinkAnimation = new ScaleAnimation( 1.0f, 0.3f, 1.0f, 0.3f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
         shrinkAnimation.setDuration(duration);
 
         growAnimation.setAnimationListener(new Animation.AnimationListener() {
