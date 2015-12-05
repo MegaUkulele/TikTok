@@ -25,7 +25,7 @@ public class MainActivity extends WearableActivity {
     private static final String TAG = "MainActivity";
 
     public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
-    private final long[] vibrationPattern = {0, 300};
+    private final long[] vibrationPattern = {0, 250};
     private final int repeateVibration = -1;
 
     private ImageView mGlowingCircle;
