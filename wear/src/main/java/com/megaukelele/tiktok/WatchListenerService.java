@@ -14,6 +14,7 @@ public class WatchListenerService extends WearableListenerService implements Mes
     private static final String TAG="WatchListenerService";
     private static final String TOGGLE_MESSAGE = "toggle_user_tempos";
     private static final String UPDATE_TEMPO_MESSAGE = "update_user_tempos";
+    private static final String UPDATE_BACKGROUND_COLOR = "update_background_color";
     private GoogleApiClient mApiClient;
 
 
@@ -47,6 +48,12 @@ public class WatchListenerService extends WearableListenerService implements Mes
             broadcastIntent.putExtra("first", split[0]);
             broadcastIntent.putExtra("second", split[1]);
             broadcastIntent.putExtra("third", split[2]);
+        }
+        else if (messageEvent.getPath().equals(UPDATE_BACKGROUND_COLOR)) {
+            /* BUG: MainActivity.mUpdateUserTempos Intents not being broadcasted */
+            broadcastIntent.setAction(MainActivity.mUpdateBackgroundColor);
+            String data = new String(messageEvent.getData());
+            broadcastIntent.putExtra("option", Integer.parseInt(data));
         }
         sendBroadcast(broadcastIntent);
     }

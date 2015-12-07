@@ -11,20 +11,24 @@
         android:background="@drawable/advancedsettings"
         android:id="@+id/backtomain"/>-->
 
-    <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textColor="#ffffff"
-        android:textSize="32dp" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back to Main Menu"
-        android:background="#1ED760"
-        android:id="@+id/back"
-        android:layout_margin="10dp"
-        android:textColor="#ffffff"
-        android:layout_gravity="center_horizontal" />
+        android:orientation="horizontal"
+        android:background="#3ddca6">
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/back_arrow"
+            android:id="@+id/back"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_horizontal" />
+        <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="32dp" />
+    </LinearLayout>
 
     <TextView android:text="Select a watch face" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -70,7 +74,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/cbUserTempos" />
 
-        <TextView android:text="User Tempos" android:layout_width="fill_parent"
+        <TextView android:text="Set Mutliple User Tempos" android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:textSize="16dp"/>

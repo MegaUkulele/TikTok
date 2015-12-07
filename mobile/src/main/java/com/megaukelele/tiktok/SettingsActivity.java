@@ -2,12 +2,14 @@ package com.megaukelele.tiktok;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -27,6 +29,7 @@ public class SettingsActivity extends Activity {
     private static final long CONNECTION_TIME_OUT_MS = 1000;
     private static final String TOGGLE_MESSAGE = "toggle_user_tempos";
     private static final String UPDATE_TEMPO_MESSAGE = "update_user_tempos";
+    private static final String UPDATE_BACKGROUND_COLOR = "update_background_color";
     private String nodeId;
     private float x1,x2;
     static final int MIN_DISTANCE = 150;
@@ -71,16 +74,16 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        //ImageButton btn_temp=(ImageButton)findViewById(R.id.backtomain);
-//        btn_temp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(
-//                        SettingsActivity.this,
-//                        MainActivity.class);
-//                startActivity(i);
-//            }
-//        });
+        ImageButton btn_temp=(ImageButton)findViewById(R.id.back);
+        btn_temp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(
+                        SettingsActivity.this,
+                        MainActivity.class);
+                startActivity(i);
+            }
+        });
 
         initApi();
 
@@ -200,6 +203,23 @@ public class SettingsActivity extends Activity {
                     third = mThirdTemp.getValue();
                     msgint = String.valueOf(first) + "|" + String.valueOf(second) + "|" + String.valueOf(third);
                     Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, UPDATE_TEMPO_MESSAGE, msgint.getBytes());
+                    mGoogleApiClient.disconnect();
+                }
+            }).start();
+        }
+    }
+
+    private void sendBackgroundColor(final int buttonNumber) {
+        Log.d(TAG, "send color from mobile");
+        if (nodeId != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, nodeId);
+                    mGoogleApiClient.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
+                    String msgint;
+                    msgint = String.valueOf(buttonNumber);
+                    Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, UPDATE_BACKGROUND_COLOR, msgint.getBytes());
                     mGoogleApiClient.disconnect();
                 }
             }).start();

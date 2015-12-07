@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.wearable.activity.WearableActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends WearableActivity {
 
     public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
     public static final String mUpdateUserTempos = "com.megaUkulele.broadcast.updateUserTempos";
+    public static final String mUpdateBackgroundColor = "com.megaUkulele.broadcast.updateBackgroundColor";
 
     private final long[] vibrationPattern = {0, 250};
     private final int repeateVibration = -1;
@@ -266,6 +268,10 @@ public class MainActivity extends WearableActivity {
                 third = intent.getStringExtra("third");
                 System.out.println(first + second + third);
                 updateUserTempos(first, second, third);
+            } else if (intent.getAction().equals(mUpdateBackgroundColor)) {
+                int option;
+                option = intent.getIntExtra("option", 0);
+                setBackgroundGradient(option);
             }
         }
     };
@@ -321,5 +327,24 @@ public class MainActivity extends WearableActivity {
     private void setMetronomeTempo(int tempo) {
         mBPMPicker.setValue(tempo);
         setGlowingRate(tempo);
+    }
+
+    private void setBackgroundGradient(int option) {
+        Drawable gradient = getResources().getDrawable(R.drawable.glowing_circle);
+        switch (option) {
+            case 1:
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_blue);
+                break;
+            case 2:
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_blue);
+                break;
+            case 3:
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_blue);
+                break;
+            default:
+                gradient = getResources().getDrawable(R.drawable.glowing_circle);
+                break;
+        }
+        mGlowingCircle.setBackground(gradient);
     }
 }
