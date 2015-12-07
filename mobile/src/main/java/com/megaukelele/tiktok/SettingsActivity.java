@@ -2,13 +2,13 @@ package com.megaukelele.tiktok;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.NumberPicker;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.Node;
@@ -20,10 +20,13 @@ import java.util.concurrent.TimeUnit;
 
 public class SettingsActivity extends Activity {
     private static String TAG = "SettingsActivity";
-    public Button settings;
+    public Button settings, mSendtoWear;
     private GoogleApiClient mGoogleApiClient;
+    private NumberPicker  mFirstTemp, mSecondTemp, mThirdTemp;
+    private CheckBox mUserTempToggle;
     private static final long CONNECTION_TIME_OUT_MS = 1000;
-    private static final String MESSAGE = "toggle_user_tempos";
+    private static final String TOGGLE_MESSAGE = "toggle_user_tempos";
+    private static final String UPDATE_TEMPO_MESSAGE = "update_user_tempos";
     private String nodeId;
     private float x1,x2;
     static final int MIN_DISTANCE = 150;
@@ -32,7 +35,43 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_main);
-        ImageButton btn_temp=(ImageButton)findViewById(R.id.backtomain);
+
+        mSendtoWear = (Button) findViewById(R.id.btnSendtoWear);
+        mFirstTemp = (NumberPicker) findViewById(R.id.npFirstTemp);
+        mSecondTemp = (NumberPicker) findViewById(R.id.npSecondTemp);
+        mThirdTemp = (NumberPicker) findViewById(R.id.npThirdTemp);
+        mUserTempToggle = (CheckBox) findViewById(R.id.cbUserTempos);
+        mFirstTemp.setMinValue(30);
+        mFirstTemp.setMaxValue(200);
+        mFirstTemp.setValue(120);
+        mFirstTemp.setWrapSelectorWheel(false);
+        mSecondTemp.setMinValue(30);
+        mSecondTemp.setMaxValue(200);
+        mSecondTemp.setValue(120);
+        mSecondTemp.setWrapSelectorWheel(false);
+        mThirdTemp.setMinValue(30);
+        mThirdTemp.setMaxValue(200);
+        mThirdTemp.setValue(120);
+        mThirdTemp.setWrapSelectorWheel(false);
+
+        enableComponents();
+
+        mSendtoWear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserTempos();
+            }
+        });
+
+        mUserTempToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                toggleUserTempos();
+                enableComponents();
+            }
+        });
+
+        //ImageButton btn_temp=(ImageButton)findViewById(R.id.backtomain);
 //        btn_temp.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -47,39 +86,46 @@ public class SettingsActivity extends Activity {
 
         // this is a temporary gesture just for demonstrating two different actions with one image button
         // swiping left triggers sending a message to wear, swiping right triggers switching activities
-        btn_temp.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
+//        btn_temp.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        x1 = event.getX();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        x2 = event.getX();
+//                        float deltaX = x2 - x1;
+//                        if (Math.abs(deltaX) > MIN_DISTANCE) {
+//                            if (x1 > x2) {
+//                                // swipe left
+//                                Log.d(TAG, "swipe left!");
+//                                toggleUserTempos();
+//                            } else {
+//                                // swipe right
+//                                Intent i = new Intent(
+//                                        SettingsActivity.this,
+//                                        MainActivity.class);
+//                                startActivity(i);
+//                            }
+//
+//                        } else {
+//                            // consider as something else - a screen tap for example
+//                        }
+//                        break;
+//                }
+//
+//                return true;
+//            }
+//        });
+    }
 
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        x1 = event.getX();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        x2 = event.getX();
-                        float deltaX = x2 - x1;
-                        if (Math.abs(deltaX) > MIN_DISTANCE) {
-                            if (x1 > x2) {
-                                // swipe left
-                                Log.d(TAG, "swipe left!");
-                                toggleUserTempos();
-                            } else {
-                                // swipe right
-                                Intent i = new Intent(
-                                        SettingsActivity.this,
-                                        MainActivity.class);
-                                startActivity(i);
-                            }
-
-                        } else {
-                            // consider as something else - a screen tap for example
-                        }
-                        break;
-                }
-
-                return true;
-            }
-        });
+    private void enableComponents() {
+        boolean enabled = mUserTempToggle.isChecked();
+        mFirstTemp.setEnabled(enabled);
+        mSecondTemp.setEnabled(enabled);
+        mThirdTemp.setEnabled(enabled);
+        mSendtoWear.setEnabled(enabled);
     }
 
     private void initApi() {
@@ -110,7 +156,6 @@ public class SettingsActivity extends Activity {
                 NodeApi.GetConnectedNodesResult result =
                         Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).await();
                 List<Node> nodes = result.getNodes();
-                Log.d(TAG, "nodes" + nodes);
                 if (nodes.size() > 0) {
                     nodeId = nodes.get(0).getId();
                 }
@@ -130,9 +175,32 @@ public class SettingsActivity extends Activity {
                 public void run() {
                     Log.d(TAG, nodeId);
                     mGoogleApiClient.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
-                    Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, MESSAGE, null);
+                    Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, TOGGLE_MESSAGE, null);
                     mGoogleApiClient.disconnect();
-                    Log.d(TAG, "message sent from mobile");
+                }
+            }).start();
+        }
+    }
+
+    /**
+     * Sends a message to the connected wear device, telling it to toggle userTempos.
+     */
+    private void sendUserTempos() {
+        Log.d(TAG, "sendUserTempos from mobile");
+        if (nodeId != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, nodeId);
+                    mGoogleApiClient.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
+                    int first, second, third;
+                    String msgint;
+                    first = mFirstTemp.getValue();
+                    second = mSecondTemp.getValue();
+                    third = mThirdTemp.getValue();
+                    msgint = String.valueOf(first) + "|" + String.valueOf(second) + "|" + String.valueOf(third);
+                    Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, UPDATE_TEMPO_MESSAGE, msgint.getBytes());
+                    mGoogleApiClient.disconnect();
                 }
             }).start();
         }

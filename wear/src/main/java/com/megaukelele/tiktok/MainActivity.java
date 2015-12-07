@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.wearable.activity.WearableActivity;
@@ -15,6 +16,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -25,19 +27,24 @@ public class MainActivity extends WearableActivity {
     private static final String TAG = "MainActivity";
 
     public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
+    public static final String mUpdateUserTempos = "com.megaUkulele.broadcast.updateUserTempos";
+
     private final long[] vibrationPattern = {0, 250};
     private final int repeateVibration = -1;
 
     private ImageView mGlowingCircle;
-    private Button mPlayButton;
+    private Button mPlayButton, mFirstTemp, mSecondTemp, mThirdTemp;
     private BPMPicker mBPMPicker;
     private TextView mTapPrompt;
+    private LinearLayout mUserTempos;
     private boolean playing;
+    private boolean userTempoMode;
     private Animation growAnimation, shrinkAnimation;
     private float x1,x2;
     static final int MIN_DISTANCE = 150;
     private IntentFilter mIntentFilter;
     private Vibrator vibrator;
+
 
     //tap BPM variables
     static final int timeout = 2000;
@@ -51,24 +58,40 @@ public class MainActivity extends WearableActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startService(new Intent(this, WatchListenerService.class));
 
         playing = false;
+
+        initializeViews();
+        setListeners();
+
+        userTempoMode = true;
+        toggleMetronomeMode();
+
+        int bpm = mBPMPicker.getValue();
+        setMetronomeTempo(bpm);
+        mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction(mToggleUserTempos);
+    }
+
+    private void initializeViews() {
+        mGlowingCircle = (ImageView) findViewById(R.id.ivCircle);
+        mPlayButton = (Button) findViewById(R.id.btnPlay);
+        mFirstTemp = (Button) findViewById(R.id.btnFirstUserTemp);
+        mSecondTemp = (Button) findViewById(R.id.btnSecondUserTemp);
+        mThirdTemp = (Button) findViewById(R.id.btnThirdUserTemp);
+        mUserTempos = (LinearLayout) findViewById(R.id.llUserTempos);
+        mTapPrompt = (TextView) findViewById(R.id.tvMetronomeMode);
+        tapBPMButton = (ImageButton) findViewById(R.id.tapBPMButton);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mBPMPicker = (BPMPicker) findViewById(R.id.numberPicker);
         mBPMPicker.setMinValue(30);
         mBPMPicker.setMaxValue(200);
-        mBPMPicker.setValue(120);
+        mBPMPicker.setValue(60);
         mBPMPicker.setWrapSelectorWheel(false);
+    }
 
-        mGlowingCircle = (ImageView) findViewById(R.id.ivCircle);
-        mPlayButton = (Button) findViewById(R.id.btnPlay);
-
-        tapBPMButton = (ImageButton) findViewById(R.id.tapBPMButton);
-        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-        int bpm = mBPMPicker.getValue();
-        Log.e(TAG, String.valueOf(bpm));
-        setGlowingRate(bpm);
-
+    private void setListeners() {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,15 +138,6 @@ public class MainActivity extends WearableActivity {
             }
         });
 
-        mBPMPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                setGlowingRate(oldVal);
-            }
-        });
-
-        mTapPrompt = (TextView) findViewById(R.id.textView);
-
         mTapPrompt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -156,9 +170,33 @@ public class MainActivity extends WearableActivity {
             }
         });
 
-        mIntentFilter = new IntentFilter();
-        mIntentFilter.addAction(mToggleUserTempos);
+        mBPMPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                setGlowingRate(oldVal);
+            }
+        });
 
+        mFirstTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectUserTempo(1);
+            }
+        });
+
+        mSecondTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectUserTempo(2);
+            }
+        });
+
+        mThirdTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectUserTempo(3);
+            }
+        });
     }
 
     @Override
@@ -196,6 +234,7 @@ public class MainActivity extends WearableActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+
         shrinkAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -217,12 +256,70 @@ public class MainActivity extends WearableActivity {
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "received broadcast at MainActivity");
-
+            Log.d(TAG, intent.getAction());
             if (intent.getAction().equals(mToggleUserTempos)) {
-                mTapPrompt = (TextView) findViewById(R.id.textView);
-                mTapPrompt.setText("User Tempos");
+                toggleMetronomeMode();
+            } else if (intent.getAction().equals(mUpdateUserTempos)) {
+                String first, second, third;
+                first = intent.getStringExtra("first");
+                second = intent.getStringExtra("second");
+                third = intent.getStringExtra("third");
+                System.out.println(first + second + third);
+                updateUserTempos(first, second, third);
             }
         }
     };
+
+    private void updateUserTempos(String first, String second, String third) {
+        mFirstTemp.setText(first);
+        mSecondTemp.setText(second);
+        mThirdTemp.setText(third);
+    }
+
+    private void toggleMetronomeMode() {
+        System.out.println("toggling");
+        //RelativeLayout.LayoutParams textviewparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (!userTempoMode) {
+            //textviewparams.setMargins(70, 0, 0, 0);
+            //mTapPrompt.setLayoutParams(textviewparams);
+            mTapPrompt.setText(R.string.usr_tempo);
+            mUserTempos.setVisibility(View.VISIBLE);
+            tapBPMButton.setVisibility(View.GONE);
+            selectUserTempo(1);
+        } else {
+            //textviewparams.setMargins(80, 0, 0, 0);
+            //mTapPrompt.setLayoutParams(textviewparams);
+            mTapPrompt.setText(R.string.tap_instr);
+            mUserTempos.setVisibility(View.GONE);
+            tapBPMButton.setVisibility(View.VISIBLE);
+        }
+        userTempoMode = !userTempoMode;
+    }
+
+    private void selectUserTempo(int tempo) {
+        int temp = 60;
+        mFirstTemp.setTextColor(Color.parseColor("#C2C2C7"));
+        mSecondTemp.setTextColor(Color.parseColor("#C2C2C7"));
+        mThirdTemp.setTextColor(Color.parseColor("#C2C2C7"));
+        switch (tempo) {
+            case 1:
+                mFirstTemp.setTextColor(Color.parseColor("#FFFFFF"));
+                temp = Integer.parseInt(mFirstTemp.getText().toString());
+                break;
+            case 2:
+                mSecondTemp.setTextColor(Color.parseColor("#FFFFFF"));
+                temp = Integer.parseInt(mSecondTemp.getText().toString());
+                break;
+            case 3:
+                mThirdTemp.setTextColor(Color.parseColor("#FFFFFF"));
+                temp = Integer.parseInt(mThirdTemp.getText().toString());
+                break;
+        }
+        setMetronomeTempo(temp);
+    }
+
+    private void setMetronomeTempo(int tempo) {
+        mBPMPicker.setValue(tempo);
+        setGlowingRate(tempo);
+    }
 }

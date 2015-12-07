@@ -62,14 +62,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tap_instr"
-                android:id="@+id/textView"
+                android:id="@+id/tvMetronomeMode"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:elegantTextHeight="true"
                 android:layout_below="@+id/numberPicker"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="60dp"
                 android:layout_centerHorizontal="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:id="@+id/llUserTempos"
+                android:layout_marginTop="-4dp"
+                android:layout_below="@id/tvMetronomeMode"
+                android:layout_centerHorizontal="true">
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:background="@android:color/transparent"
+                    android:text="180"
+                    android:textColor="#C2C2C7"
+                    android:id="@+id/btnFirstUserTemp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:textSize="15sp"/>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:background="@android:color/transparent"
+                    android:text="150"
+                    android:textColor="#C2C2C7"
+                    android:id="@+id/btnSecondUserTemp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:textSize="15sp"/>
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    android:background="@android:color/transparent"
+                    android:text="120"
+                    android:textColor="#C2C2C7"
+                    android:id="@+id/btnThirdUserTemp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
 
             <ImageButton
                 android:layout_width="40dp"
@@ -78,8 +123,9 @@
                 android:background="@drawable/tap_bpm_circle"
                 android:layout_marginBottom="14dp"
                 android:layout_marginRight="4dp"
-                android:layout_alignBottom="@+id/textView"
+                android:layout_alignBottom="@+id/tvMetronomeMode"
                 android:layout_toStartOf="@+id/numberPicker" />
+
         </RelativeLayout>
 
 

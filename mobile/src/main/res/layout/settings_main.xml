@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="textStart"
-    android:background="#010101">
-    <ImageButton
+    android:background="#303642">
+    <!--<ImageButton
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/advancedsettings"
-        android:id="@+id/backtomain"/>
+        android:id="@+id/backtomain"/>-->
 
     <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -25,10 +25,12 @@
         android:layout_margin="10dp"
         android:textColor="#ffffff"
         android:layout_gravity="center_horizontal" />
+
     <TextView android:text="Select a watch face" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:textSize="16dp"/>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -57,26 +59,54 @@
             android:layout_margin="10dp"
             android:textColor="#ffffff" />
     </LinearLayout>
-    <TextView android:text="Set multiple tempos" android:layout_width="fill_parent"
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="16dp"/>
-    <TextView android:text="first tempo" android:layout_width="fill_parent"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cbUserTempos" />
+
+        <TextView android:text="User Tempos" android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="16dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="12dp"/>
-    <NumberPicker
-        android:layout_margin="10dp"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
-        android:id="@+id/firsttempo" />
-    <TextView android:text="second tempo" android:layout_width="fill_parent"
+        android:layout_gravity="center">
+
+        <NumberPicker
+            android:layout_margin="10dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:id="@+id/npFirstTemp" />
+
+        <NumberPicker
+            android:layout_margin="10dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:id="@+id/npSecondTemp" />
+
+        <NumberPicker
+            android:layout_margin="10dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:id="@+id/npThirdTemp" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="12dp"/>
-    <NumberPicker
-        android:layout_margin="10dp"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
-        android:id="@+id/secondtempo" />
+        android:layout_gravity="center"
+        android:text="Send to Wear"
+        android:id="@+id/btnSendtoWear"
+        />
+
 </LinearLayout>
