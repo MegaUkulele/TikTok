@@ -49,10 +49,10 @@ public class WatchListenerService extends WearableListenerService implements Mes
             broadcastIntent.putExtra("second", split[1]);
             broadcastIntent.putExtra("third", split[2]);
         }
-        else if (messageEvent.getPath().equals(UPDATE_BACKGROUND_COLOR)) {
-            /* BUG: MainActivity.mUpdateUserTempos Intents not being broadcasted */
+        if (messageEvent.getPath().equals(UPDATE_BACKGROUND_COLOR)) {
             broadcastIntent.setAction(MainActivity.mUpdateBackgroundColor);
             String data = new String(messageEvent.getData());
+            Log.d(TAG, "should update to " + data);
             broadcastIntent.putExtra("option", Integer.parseInt(data));
         }
         sendBroadcast(broadcastIntent);

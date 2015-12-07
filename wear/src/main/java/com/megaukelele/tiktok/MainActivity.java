@@ -44,7 +44,7 @@ public class MainActivity extends WearableActivity {
     private Animation growAnimation, shrinkAnimation;
     private float x1,x2;
     static final int MIN_DISTANCE = 150;
-    private IntentFilter mIntentFilter;
+    private IntentFilter mIntentFilter, mIntentColor;
     private Vibrator vibrator;
 
 
@@ -74,6 +74,7 @@ public class MainActivity extends WearableActivity {
         setMetronomeTempo(bpm);
         mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(mToggleUserTempos);
+        mIntentFilter.addAction(mUpdateBackgroundColor);
     }
 
     private void initializeViews() {
@@ -258,6 +259,7 @@ public class MainActivity extends WearableActivity {
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "recieved message");
             Log.d(TAG, intent.getAction());
             if (intent.getAction().equals(mToggleUserTempos)) {
                 toggleMetronomeMode();
@@ -271,7 +273,7 @@ public class MainActivity extends WearableActivity {
             } else if (intent.getAction().equals(mUpdateBackgroundColor)) {
                 int option;
                 option = intent.getIntExtra("option", 0);
-                setBackgroundGradient(option);
+                updateBackgroundColor(option);
             }
         }
     };
@@ -329,17 +331,18 @@ public class MainActivity extends WearableActivity {
         setGlowingRate(tempo);
     }
 
-    private void setBackgroundGradient(int option) {
+    private void updateBackgroundColor(int option) {
+        Log.d(TAG, "YEAH updating the background color");
         Drawable gradient = getResources().getDrawable(R.drawable.glowing_circle);
         switch (option) {
             case 1:
                 gradient = getResources().getDrawable(R.drawable.glowing_circle_blue);
                 break;
             case 2:
-                gradient = getResources().getDrawable(R.drawable.glowing_circle_blue);
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_red);
                 break;
             case 3:
-                gradient = getResources().getDrawable(R.drawable.glowing_circle_blue);
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_yellow);
                 break;
             default:
                 gradient = getResources().getDrawable(R.drawable.glowing_circle);

@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SettingsActivity extends Activity {
     private static String TAG = "SettingsActivity";
-    public Button settings, mSendtoWear;
+    public Button settings, mSendtoWear, green, red, blue, yellow;
     private GoogleApiClient mGoogleApiClient;
     private NumberPicker  mFirstTemp, mSecondTemp, mThirdTemp;
     private CheckBox mUserTempToggle;
@@ -38,8 +38,11 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_main);
-
         mSendtoWear = (Button) findViewById(R.id.btnSendtoWear);
+        green = (Button) findViewById(R.id.green);
+        red = (Button) findViewById(R.id.red);
+        blue = (Button) findViewById(R.id.blue);
+        yellow = (Button) findViewById(R.id.yellow);
         mFirstTemp = (NumberPicker) findViewById(R.id.npFirstTemp);
         mSecondTemp = (NumberPicker) findViewById(R.id.npSecondTemp);
         mThirdTemp = (NumberPicker) findViewById(R.id.npThirdTemp);
@@ -63,6 +66,34 @@ public class SettingsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 sendUserTempos();
+            }
+        });
+
+        green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendBackgroundColor(0);
+            }
+        });
+
+        blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendBackgroundColor(1);
+            }
+        });
+
+        red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendBackgroundColor(2);
+            }
+        });
+
+        yellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendBackgroundColor(3);
             }
         });
 
