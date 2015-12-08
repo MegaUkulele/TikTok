@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     android:textAlignment="textStart"
     android:background="#303642">
-    <!--<ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/advancedsettings"
-        android:id="@+id/backtomain"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,28 +12,39 @@
         android:orientation="horizontal"
         android:background="#3ddca6">
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="25dp"
             android:background="@mipmap/back_arrow"
+            android:backgroundTint="#ffffff"
             android:id="@+id/back"
             android:textColor="#ffffff"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp" />
         <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:textColor="#ffffff"
-            android:textSize="32dp" />
+            android:layout_margin="10dp"
+            android:textSize="32dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <TextView android:text="Set Pulse Color" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="16dp"/>
-
+        android:textColor="#c3c2c7"
+        android:textSize="18dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold" />
+    <TextView android:text="Change the color of the background pulse of the watch" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#c3c2c7"
+        android:textSize="14dp"
+        android:layout_marginLeft="10dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -76,7 +82,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -85,10 +92,15 @@
 
         <TextView android:text="Set Mutliple User Tempos" android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:textSize="16dp"/>
+            android:textColor="#c3c2c7"
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </LinearLayout>
-
+    <TextView android:text="Engages user tempo mode where watch taps switch between user-set tempos" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#c3c2c7"
+        android:textSize="14dp"
+        android:layout_marginLeft="10dp" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
