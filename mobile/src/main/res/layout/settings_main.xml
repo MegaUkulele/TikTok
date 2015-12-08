@@ -35,7 +35,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:textStyle="bold" />
-    <TextView android:text="Change the color of the background pulse of the watch" android:layout_width="fill_parent"
+    <TextView android:text="Choose a color for your TikTok Wear metronome glow." android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#c3c2c7"
         android:textSize="14dp"
@@ -96,7 +96,7 @@
             android:textSize="18dp"
             android:textStyle="bold" />
     </LinearLayout>
-    <TextView android:text="Engages user tempo mode where watch taps switch between user-set tempos" android:layout_width="fill_parent"
+    <TextView android:text="Choose multiple tempos.  Then tap your TikTok Wear screen to quickly switch between these tempos." android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#c3c2c7"
         android:textSize="14dp"
