@@ -340,16 +340,16 @@ public class MainActivity extends WearableActivity {
         Drawable gradient = getResources().getDrawable(R.drawable.glowing_circle);
         switch (option) {
             case 1:
-                gradient = getResources().getDrawable(R.drawable.glowing_circle_blue);
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_blue, getTheme());
                 break;
             case 2:
-                gradient = getResources().getDrawable(R.drawable.glowing_circle_red);
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_red, getTheme());
                 break;
             case 3:
-                gradient = getResources().getDrawable(R.drawable.glowing_circle_yellow);
+                gradient = getResources().getDrawable(R.drawable.glowing_circle_yellow, getTheme());
                 break;
             default:
-                gradient = getResources().getDrawable(R.drawable.glowing_circle);
+                gradient = getResources().getDrawable(R.drawable.glowing_circle, getTheme());
                 break;
         }
         mGlowingCircle.setBackground(gradient);
