@@ -4,25 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="textStart"
-    android:background="#303642">
+    android:background="@color/tokGray">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#3ddca6">
+        android:background="@color/tokGreen">
         <ImageButton
             android:layout_width="35dp"
             android:layout_height="25dp"
             android:background="@mipmap/back_arrow"
-            android:backgroundTint="#ffffff"
+            android:backgroundTint="@color/white"
             android:id="@+id/back"
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp" />
         <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:layout_margin="10dp"
             android:textSize="32dp"
             android:textStyle="bold"/>
@@ -30,14 +30,14 @@
 
     <TextView android:text="Set Pulse Color" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#c3c2c7"
+        android:textColor="@color/textGray"
         android:textSize="18dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:textStyle="bold" />
     <TextView android:text="Choose a color for your TikTok Wear metronome glow." android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#c3c2c7"
+        android:textColor="@color/textGray"
         android:textSize="14dp"
         android:layout_marginLeft="10dp" />
     <LinearLayout
@@ -48,35 +48,35 @@
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="#3ddca6"
+            android:background="@color/tokGreen"
             android:text="green"
             android:id="@+id/green"
             android:layout_margin="10dp"
-            android:textColor="#ffffff" />
+            android:textColor="@color/white" />
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:text="blue"
-            android:background="#0EB4B6"
+            android:background="@color/aquaManBlue"
             android:id="@+id/blue"
             android:layout_margin="10dp"
-            android:textColor="#ffffff" />
+            android:textColor="@color/white" />
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:text="pink"
-            android:background="#EB1478"
+            android:background="@color/gogenta"
             android:id="@+id/red"
             android:layout_margin="10dp"
-            android:textColor="#ffffff" />
+            android:textColor="@color/white" />
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:text="orange"
-            android:background="#FB9A34"
+            android:background="@color/houndOrange"
             android:id="@+id/yellow"
             android:layout_margin="10dp"
-            android:textColor="#ffffff" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -90,15 +90,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/cbUserTempos" />
 
-        <TextView android:text="Set Mutliple User Tempos" android:layout_width="fill_parent"
+        <TextView android:text="Set Multiple User Tempos" android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#c3c2c7"
+            android:textColor="@color/textGray"
             android:textSize="18dp"
             android:textStyle="bold" />
     </LinearLayout>
     <TextView android:text="Choose multiple tempos.  Then tap your TikTok Wear screen to quickly switch between these tempos." android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="#c3c2c7"
+        android:textColor="@color/textGray"
         android:textSize="14dp"
         android:layout_marginLeft="10dp" />
     <LinearLayout

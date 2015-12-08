@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="tokGreen">#3DDCA6</color>
+    <color name="tokGray">#303642</color>
+    <color name="textGray">#c2c2c7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="aquaManBlue">#0EB4B6</color>
+    <color name="gogenta">#EB1478</color>
+    <color name="houndOrange">#FB9A34</color>
 </resources>

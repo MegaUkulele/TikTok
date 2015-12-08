@@ -4,24 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="textStart"
-    android:background="#303642">
+    android:background="@color/tokGray">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--<ImageButton-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@drawable/homeactivity"-->
-            <!--android:id="@+id/imagesettings"/>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#3ddca6">
+            android:background="@color/tokGreen">
             <TextView android:text="TikTok" android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:textSize="32dp"
                 android:textStyle="bold"
                 android:gravity="center_horizontal"
@@ -55,9 +50,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Advanced Settings"
-            android:background="#3ddca6"
+            android:background="@color/tokGreen"
             android:id="@+id/settings"
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:layout_marginLeft="75dp"
             android:layout_marginRight="75dp"
             android:layout_marginTop="50dp" />
