@@ -20,6 +20,18 @@
             android:layout_height="match_parent"
             android:background="@drawable/homeactivity"
             android:id="@+id/imagesettings"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#3ddca6">
+            <TextView android:text="Advanced Settings" android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:layout_margin="10dp"
+                android:textSize="32dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
         <TextView android:text="Tik Tok" android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
