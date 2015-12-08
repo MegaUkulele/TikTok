@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class MainActivity extends WearableActivity {
     private final long[] vibrationPattern = {0, 250};
     private final int repeateVibration = -1;
 
+    private RelativeLayout mScreen;
     private ImageView mGlowingCircle;
     private Button mPlayButton, mFirstTemp, mSecondTemp, mThirdTemp;
     private BPMPicker mBPMPicker;
@@ -79,6 +81,7 @@ public class MainActivity extends WearableActivity {
     }
 
     private void initializeViews() {
+        mScreen = (RelativeLayout) findViewById(R.id.llDisplay);
         mGlowingCircle = (ImageView) findViewById(R.id.ivCircle);
         mPlayButton = (Button) findViewById(R.id.btnPlay);
         mFirstTemp = (Button) findViewById(R.id.btnFirstUserTemp);
@@ -142,7 +145,7 @@ public class MainActivity extends WearableActivity {
             }
         });
 
-        mTapPrompt.setOnTouchListener(new View.OnTouchListener() {
+        mScreen.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
