@@ -51,23 +51,23 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:text="blue"
-            android:background="#66b2ff"
+            android:background="#0EB4B6"
             android:id="@+id/blue"
             android:layout_margin="10dp"
             android:textColor="#ffffff" />
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:text="red"
-            android:background="#ff5c33"
+            android:text="pink"
+            android:background="#EB1478"
             android:id="@+id/red"
             android:layout_margin="10dp"
             android:textColor="#ffffff" />
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:text="yellow"
-            android:background="#ffff00"
+            android:text="orange"
+            android:background="#FB9A34"
             android:id="@+id/yellow"
             android:layout_margin="10dp"
             android:textColor="#ffffff" />

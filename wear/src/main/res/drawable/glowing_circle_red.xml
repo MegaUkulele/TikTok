@@ -10,7 +10,7 @@
         android:gradientRadius="130"
         android:centerX=".5"
         android:centerY=".5"
-        android:startColor="#ff3300"
+        android:startColor="#EB1478"
         android:endColor="@color/watch_background" />
 
     <!-- Specify the margins that all content inside the drawable must adhere to -->
