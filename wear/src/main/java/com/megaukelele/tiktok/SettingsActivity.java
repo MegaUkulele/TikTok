@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -26,40 +27,17 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //shared preferences
-        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-        cbVibrate = (CheckBox) findViewById(R.id.cbVibrate);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         LinearLayout layout_settings = (LinearLayout)findViewById(R.id.llwearsettings);
 
-        /*
-        cbVibrate.setOnClickListener(new View.OnClickListener() {
+        //shared preferences
+        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        cbVibrate = (CheckBox) findViewById(R.id.cbVibrate);
+
+        layout_settings.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                //if checkbox is checked
-                if (((CheckBox) v).isChecked()) {
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("vibrateOn", true);
-                    editor.commit();
-                } else {
-                    //else it is not checked
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("vibrateOn", false);
-                    editor.commit();
-                }
-            }
-        });
-        */
-
-            layout_settings.setOnTouchListener(new View.OnTouchListener()
-
-            {
-                @Override
-                public boolean onTouch (View v, MotionEvent event){
-
+            public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         x1 = event.getX();
@@ -87,9 +65,30 @@ public class SettingsActivity extends Activity {
 
                 return true;
             }
-            }
+        });
 
-            );
+        cbVibrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if checkbox is checked
+                if (((CheckBox) v).isChecked()) {
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("vibrateOn", true);
+                    editor.commit();
+
+                    //Log.d(TAG, "in checkbox");
+                } else {
+                    //else it is not checked
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("vibrateOn", false);
+                    editor.commit();
+
+                    //Log.d(TAG, "in checkbox false");
+                }
+            }
+        });
+
+
         }
 
 

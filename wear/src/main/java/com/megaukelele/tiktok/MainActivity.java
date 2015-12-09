@@ -55,6 +55,7 @@ public class MainActivity extends WearableActivity {
     private IntentFilter mIntentFilter, mIntentColor;
     private Vibrator vibrator;
 
+    private boolean vibrateOn = true; //vibrate flag
 
     //tap BPM variables
     static final int timeout = 2000;
@@ -67,26 +68,6 @@ public class MainActivity extends WearableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //shared preferences
-        /*
-        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-        spListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-
-                //Log.d(tag,"a setting was changed: " + key);
-                if(key.equals("vibrateON")) {
-                    Log.d(TAG, "vibrate preference changed");
-                }
-
-            }
-        };
-
-        pref.registerOnSharedPreferenceChangeListener(spListener);
-        */
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(this, WatchListenerService.class));
@@ -95,6 +76,21 @@ public class MainActivity extends WearableActivity {
 
         initializeViews();
         setListeners();
+
+        //shared preferences
+        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+
+        spListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                //Log.d(tag,"a setting was changed: " + key);
+                if(key.equals("vibrateON")) {
+                    //Log.d(TAG, "vibrate preference changed");
+                    vibrateOn = prefs.getBoolean("vibrateON", false);
+                }
+            }
+        };
+        pref.registerOnSharedPreferenceChangeListener(spListener);
+
 
         userTempoMode = true;
         toggleMetronomeMode();
@@ -274,7 +270,9 @@ public class MainActivity extends WearableActivity {
             @Override
             public void onAnimationStart(Animation animation) {
                 // do tap and vibration
-                vibrator.vibrate(vibrationPattern, repeateVibration);
+                if (vibrateOn) {
+                    vibrator.vibrate(vibrationPattern, repeateVibration);
+                }
             }
 
             @Override
