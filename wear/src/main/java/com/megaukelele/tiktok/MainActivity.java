@@ -76,6 +76,7 @@ public class MainActivity extends WearableActivity {
 
         initializeViews();
         setListeners();
+        setMetronomeMode(false);
 
         //shared preferences
         pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -90,24 +91,6 @@ public class MainActivity extends WearableActivity {
             }
         };
         pref.registerOnSharedPreferenceChangeListener(spListener);
-
-
-<<<<<<< HEAD
-        userTempoMode = true;
-        toggleMetronomeMode();
-=======
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        startService(new Intent(this, WatchListenerService.class));
-
-        playing = false;
-
-        initializeViews();
-        setListeners();
-
-        setMetronomeMode(false);
->>>>>>> b719982e57359f9d6dd4a38d6912e58bf1f807af
 
         int bpm = mBPMPicker.getValue();
         setMetronomeTempo(bpm);
