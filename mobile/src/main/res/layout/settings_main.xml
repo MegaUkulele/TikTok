@@ -117,22 +117,19 @@
             android:layout_margin="10dp"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:id="@+id/npFirstTemp"
-            style="@style/NumberPickerText"/>
+            android:id="@+id/npFirstTemp" />
 
         <NumberPicker
             android:layout_margin="10dp"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:id="@+id/npSecondTemp"
-            style="@style/NumberPickerText"/>
+            android:id="@+id/npSecondTemp"/>
 
         <NumberPicker
             android:layout_margin="10dp"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:id="@+id/npThirdTemp"
-            style="@style/NumberPickerText"/>
+            android:id="@+id/npThirdTemp"/>
 
     </LinearLayout>
 
