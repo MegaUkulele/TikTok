@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,6 +28,11 @@ import java.util.ArrayList;
 public class MainActivity extends WearableActivity {
 
     private static final String TAG = "MainActivity";
+
+    //shared preferences
+    SharedPreferences pref;
+    //shared preferences listener
+    private SharedPreferences.OnSharedPreferenceChangeListener spListener;
 
     public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
     public static final String mUpdateUserTempos = "com.megaUkulele.broadcast.updateUserTempos";
@@ -60,6 +66,27 @@ public class MainActivity extends WearableActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //shared preferences
+        /*
+        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+
+        spListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+
+                //Log.d(tag,"a setting was changed: " + key);
+                if(key.equals("vibrateON")) {
+                    Log.d(TAG, "vibrate preference changed");
+                }
+
+            }
+        };
+
+        pref.registerOnSharedPreferenceChangeListener(spListener);
+        */
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startService(new Intent(this, WatchListenerService.class));
@@ -163,6 +190,7 @@ public class MainActivity extends WearableActivity {
                                         MainActivity.this,
                                         SettingsActivity.class);
                                 startActivity(i);
+                                //startActivityForResult(i, 1);
                             } else {
                                 // swipe right
                             }
@@ -353,5 +381,13 @@ public class MainActivity extends WearableActivity {
                 break;
         }
         mGlowingCircle.setBackground(gradient);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                //do something
+            }
+        }
     }
 }
