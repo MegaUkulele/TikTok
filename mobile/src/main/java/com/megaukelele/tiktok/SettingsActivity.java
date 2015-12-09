@@ -100,7 +100,7 @@ public class SettingsActivity extends Activity {
         mUserTempToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                toggleUserTempos();
+                setUserTemposMode(isChecked);
                 enableComponents();
             }
         });
@@ -201,7 +201,7 @@ public class SettingsActivity extends Activity {
     /**
      * Sends a message to the connected wear device, telling it to toggle userTempos.
      */
-    private void toggleUserTempos() {
+    private void setUserTemposMode(final Boolean b) {
         Log.d(TAG, "toggleUserTempos from mobile");
         if (nodeId != null) {
             new Thread(new Runnable() {
@@ -209,7 +209,7 @@ public class SettingsActivity extends Activity {
                 public void run() {
                     Log.d(TAG, nodeId);
                     mGoogleApiClient.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
-                    Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, TOGGLE_MESSAGE, null);
+                    Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, TOGGLE_MESSAGE, String.valueOf(b).getBytes());
                     mGoogleApiClient.disconnect();
                 }
             }).start();
@@ -232,7 +232,8 @@ public class SettingsActivity extends Activity {
                     first = mFirstTemp.getValue();
                     second = mSecondTemp.getValue();
                     third = mThirdTemp.getValue();
-                    msgint = String.valueOf(first) + "|" + String.valueOf(second) + "|" + String.valueOf(third);
+                    msgint = String.valueOf(first) + "," + String.valueOf(second) + "," + String.valueOf(third);
+                    Log.e(TAG, msgint);
                     Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, UPDATE_TEMPO_MESSAGE, msgint.getBytes());
                     mGoogleApiClient.disconnect();
                 }

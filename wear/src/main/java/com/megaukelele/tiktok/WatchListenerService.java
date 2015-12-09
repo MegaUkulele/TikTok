@@ -35,16 +35,20 @@ public class WatchListenerService extends WearableListenerService implements Mes
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent){
-        /* BUG: Being called twice */
         Log.d(TAG, messageEvent.getPath());
         Intent broadcastIntent = new Intent();
         if (messageEvent.getPath().equals(TOGGLE_MESSAGE)) {
             broadcastIntent.setAction(MainActivity.mToggleUserTempos);
+            String data = new String(messageEvent.getData());
+            broadcastIntent.putExtra("usertempmode", data);
         } else if (messageEvent.getPath().equals(UPDATE_TEMPO_MESSAGE)) {
-            /* BUG: MainActivity.mUpdateUserTempos Intents not being broadcasted */
             broadcastIntent.setAction(MainActivity.mUpdateUserTempos);
             String data = new String(messageEvent.getData());
-            String[] split = data.split("|");
+            String[] split = data.split(",");
+            Log.e(TAG, "data: " + data);
+            Log.e(TAG, "split 0: " + split[0]);
+            Log.e(TAG, "split 1: " + split[1]);
+            Log.e(TAG, "split 2: " + split[2]);
             broadcastIntent.putExtra("first", split[0]);
             broadcastIntent.putExtra("second", split[1]);
             broadcastIntent.putExtra("third", split[2]);

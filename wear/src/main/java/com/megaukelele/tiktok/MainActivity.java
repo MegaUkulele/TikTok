@@ -92,14 +92,28 @@ public class MainActivity extends WearableActivity {
         pref.registerOnSharedPreferenceChangeListener(spListener);
 
 
+<<<<<<< HEAD
         userTempoMode = true;
         toggleMetronomeMode();
+=======
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        startService(new Intent(this, WatchListenerService.class));
+
+        playing = false;
+
+        initializeViews();
+        setListeners();
+
+        setMetronomeMode(false);
+>>>>>>> b719982e57359f9d6dd4a38d6912e58bf1f807af
 
         int bpm = mBPMPicker.getValue();
         setMetronomeTempo(bpm);
         mIntentFilter = new IntentFilter();
-        //mIntentFilter.addAction(mToggleUserTempos);
-        //mIntentFilter.addAction(mUpdateUserTempos);
+        mIntentFilter.addAction(mToggleUserTempos);
+        mIntentFilter.addAction(mUpdateUserTempos);
         mIntentFilter.addAction(mUpdateBackgroundColor);
     }
 
@@ -289,16 +303,19 @@ public class MainActivity extends WearableActivity {
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "recieved message");
-            Log.d(TAG, intent.getAction());
+            Log.e(TAG, intent.getAction());
             if (intent.getAction().equals(mToggleUserTempos)) {
-                toggleMetronomeMode();
+                String mode = intent.getStringExtra("usertempmode");
+                setMetronomeMode(Boolean.valueOf(mode));
             } else if (intent.getAction().equals(mUpdateUserTempos)) {
                 String first, second, third;
                 first = intent.getStringExtra("first");
                 second = intent.getStringExtra("second");
                 third = intent.getStringExtra("third");
-                System.out.println(first + second + third);
+                System.out.println(first);
+                System.out.println(second);
+                System.out.println(third);
+
                 updateUserTempos(first, second, third);
             } else if (intent.getAction().equals(mUpdateBackgroundColor)) {
                 int option;
@@ -314,24 +331,18 @@ public class MainActivity extends WearableActivity {
         mThirdTemp.setText(third);
     }
 
-    private void toggleMetronomeMode() {
-        System.out.println("toggling");
-        //RelativeLayout.LayoutParams textviewparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (!userTempoMode) {
-            //textviewparams.setMargins(70, 0, 0, 0);
-            //mTapPrompt.setLayoutParams(textviewparams);
+    private void setMetronomeMode(boolean usermode) {
+        if (usermode) {
             mTapPrompt.setText(R.string.usr_tempo);
             mUserTempos.setVisibility(View.VISIBLE);
             tapBPMButton.setVisibility(View.GONE);
             selectUserTempo(1);
         } else {
-            //textviewparams.setMargins(80, 0, 0, 0);
-            //mTapPrompt.setLayoutParams(textviewparams);
             mTapPrompt.setText(R.string.tap_instr);
             mUserTempos.setVisibility(View.GONE);
             tapBPMButton.setVisibility(View.VISIBLE);
         }
-        userTempoMode = !userTempoMode;
+        userTempoMode = usermode;
     }
 
     private void selectUserTempo(int tempo) {
