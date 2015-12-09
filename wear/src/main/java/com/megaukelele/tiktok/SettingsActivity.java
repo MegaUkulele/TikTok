@@ -67,6 +67,7 @@ public class SettingsActivity extends Activity {
             }
         });
 
+        /*
         cbVibrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +88,7 @@ public class SettingsActivity extends Activity {
                 }
             }
         });
+        */
 
 
         }

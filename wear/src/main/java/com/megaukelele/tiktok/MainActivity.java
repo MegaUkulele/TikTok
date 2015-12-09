@@ -79,6 +79,7 @@ public class MainActivity extends WearableActivity {
         setMetronomeMode(false);
 
         //shared preferences
+        /*
         pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
 
         spListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
@@ -91,6 +92,7 @@ public class MainActivity extends WearableActivity {
             }
         };
         pref.registerOnSharedPreferenceChangeListener(spListener);
+        */
 
         int bpm = mBPMPicker.getValue();
         setMetronomeTempo(bpm);
