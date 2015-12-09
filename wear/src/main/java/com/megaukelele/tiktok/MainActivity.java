@@ -75,8 +75,8 @@ public class MainActivity extends WearableActivity {
         int bpm = mBPMPicker.getValue();
         setMetronomeTempo(bpm);
         mIntentFilter = new IntentFilter();
-        mIntentFilter.addAction(mToggleUserTempos);
-        mIntentFilter.addAction(mUpdateUserTempos);
+        //mIntentFilter.addAction(mToggleUserTempos);
+        //mIntentFilter.addAction(mUpdateUserTempos);
         mIntentFilter.addAction(mUpdateBackgroundColor);
     }
 
