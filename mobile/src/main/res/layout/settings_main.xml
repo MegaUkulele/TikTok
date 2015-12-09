@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/tokGreen">
+
         <ImageButton
             android:layout_width="35dp"
             android:layout_height="25dp"
@@ -26,6 +27,12 @@
             android:layout_margin="10dp"
             android:textSize="32dp"
             android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     </LinearLayout>
 
     <TextView android:text="Set Pulse Color" android:layout_width="fill_parent"
@@ -110,19 +117,22 @@
             android:layout_margin="10dp"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:id="@+id/npFirstTemp" />
+            android:id="@+id/npFirstTemp"
+            style="@style/NumberPickerText"/>
 
         <NumberPicker
             android:layout_margin="10dp"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:id="@+id/npSecondTemp" />
+            android:id="@+id/npSecondTemp"
+            style="@style/NumberPickerText"/>
 
         <NumberPicker
             android:layout_margin="10dp"
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:id="@+id/npThirdTemp" />
+            android:id="@+id/npThirdTemp"
+            style="@style/NumberPickerText"/>
 
     </LinearLayout>
 
@@ -132,6 +142,10 @@
         android:layout_gravity="center"
         android:text="Send to Wear"
         android:id="@+id/btnSendtoWear"
-        />
+        android:background="@color/tokGreen"
+        android:textColor="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:radius="3dp"/>
 
 </LinearLayout>

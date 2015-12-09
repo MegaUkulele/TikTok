@@ -94,7 +94,7 @@ public class MainActivity extends WearableActivity {
         mBPMPicker = (BPMPicker) findViewById(R.id.numberPicker);
         mBPMPicker.setMinValue(30);
         mBPMPicker.setMaxValue(200);
-        mBPMPicker.setValue(60);
+        mBPMPicker.setValue(120);
         mBPMPicker.setWrapSelectorWheel(false);
     }
 
