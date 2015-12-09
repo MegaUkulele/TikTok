@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 public class SettingsActivity extends Activity {
     private static final String TAG = "SettingsActivity";
@@ -19,9 +20,9 @@ public class SettingsActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        ImageButton btn_temp = (ImageButton)findViewById(R.id.imageSettingsWear);
+        LinearLayout layout_settings = (LinearLayout)findViewById(R.id.llwearsettings);
 
-        btn_temp.setOnTouchListener(new View.OnTouchListener() {
+        layout_settings.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
