@@ -303,7 +303,6 @@ public class MainActivity extends WearableActivity {
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, intent.getAction());
             if (intent.getAction().equals(mToggleUserTempos)) {
                 String mode = intent.getStringExtra("usertempmode");
                 setMetronomeMode(Boolean.valueOf(mode));
@@ -373,7 +372,6 @@ public class MainActivity extends WearableActivity {
     }
 
     private void updateBackgroundColor(int option) {
-        Log.d(TAG, "YEAH updating the background color");
         Drawable gradient = getResources().getDrawable(R.drawable.glowing_circle);
         switch (option) {
             case 1:

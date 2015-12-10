@@ -167,7 +167,6 @@ public class SettingsActivity extends Activity {
      * Sends a message to the connected wear device, telling it to toggle userTempos.
      */
     private void setUserTemposMode(final Boolean b) {
-        Log.d(TAG, "toggleUserTempos from mobile");
         if (nodeId != null) {
             new Thread(new Runnable() {
                 @Override
@@ -185,7 +184,6 @@ public class SettingsActivity extends Activity {
      * Sends a message to the connected wear device, telling it to toggle userTempos.
      */
     private void sendUserTempos() {
-        Log.d(TAG, "sendUserTempos from mobile");
         if (nodeId != null) {
             new Thread(new Runnable() {
                 @Override
@@ -207,12 +205,10 @@ public class SettingsActivity extends Activity {
     }
 
     private void sendBackgroundColor(final int buttonNumber) {
-        Log.d(TAG, "send color from mobile");
         if (nodeId != null) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, nodeId);
                     mGoogleApiClient.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
                     String msgint;
                     msgint = String.valueOf(buttonNumber);

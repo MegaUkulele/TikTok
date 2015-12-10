@@ -35,7 +35,6 @@ public class WatchListenerService extends WearableListenerService implements Mes
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent){
-        Log.d(TAG, messageEvent.getPath());
         Intent broadcastIntent = new Intent();
         if (messageEvent.getPath().equals(TOGGLE_MESSAGE)) {
             broadcastIntent.setAction(MainActivity.mToggleUserTempos);
@@ -45,10 +44,6 @@ public class WatchListenerService extends WearableListenerService implements Mes
             broadcastIntent.setAction(MainActivity.mUpdateUserTempos);
             String data = new String(messageEvent.getData());
             String[] split = data.split(",");
-            Log.e(TAG, "data: " + data);
-            Log.e(TAG, "split 0: " + split[0]);
-            Log.e(TAG, "split 1: " + split[1]);
-            Log.e(TAG, "split 2: " + split[2]);
             broadcastIntent.putExtra("first", split[0]);
             broadcastIntent.putExtra("second", split[1]);
             broadcastIntent.putExtra("third", split[2]);
@@ -56,7 +51,6 @@ public class WatchListenerService extends WearableListenerService implements Mes
         if (messageEvent.getPath().equals(UPDATE_BACKGROUND_COLOR)) {
             broadcastIntent.setAction(MainActivity.mUpdateBackgroundColor);
             String data = new String(messageEvent.getData());
-            Log.d(TAG, "should update to " + data);
             broadcastIntent.putExtra("option", Integer.parseInt(data));
         }
         sendBroadcast(broadcastIntent);
