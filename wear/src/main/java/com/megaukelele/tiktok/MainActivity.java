@@ -63,7 +63,8 @@ public class MainActivity extends WearableActivity {
     private int previousTime = 0;
     private ArrayList<Integer> tapTimes = new ArrayList<Integer>();
     private int count = 0;
-    //
+
+    private int userTempoIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,21 +121,7 @@ public class MainActivity extends WearableActivity {
         mBPMPicker.setWrapSelectorWheel(false);
     }
 
-    private void setListeners() {
-        mPlayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (playing) {
-                    mGlowingCircle.clearAnimation();
-                    mPlayButton.setBackgroundResource(R.drawable.play);
-                } else {
-                    mGlowingCircle.startAnimation(shrinkAnimation);
-                    mPlayButton.setBackgroundResource(R.drawable.pause);
-                }
-                playing = !playing;
-            }
-        });
-
+    private void useTapForBpm() {
         tapBPMButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +153,34 @@ public class MainActivity extends WearableActivity {
                 }
             }
         });
+    }
+
+    private void useTapForUserTempo() {
+        tapBPMButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectUserTempo(userTempoIndex % 3 + 1);
+                userTempoIndex ++;
+            }
+        });
+    }
+
+    private void setListeners() {
+        mPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (playing) {
+                    mGlowingCircle.clearAnimation();
+                    mPlayButton.setBackgroundResource(R.drawable.play);
+                } else {
+                    mGlowingCircle.startAnimation(shrinkAnimation);
+                    mPlayButton.setBackgroundResource(R.drawable.pause);
+                }
+                playing = !playing;
+            }
+        });
+
+        useTapForBpm();
 
 //        mScreen.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -288,7 +303,7 @@ public class MainActivity extends WearableActivity {
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e(TAG, intent.getAction());
+            Log.d(TAG, intent.getAction());
             if (intent.getAction().equals(mToggleUserTempos)) {
                 String mode = intent.getStringExtra("usertempmode");
                 setMetronomeMode(Boolean.valueOf(mode));
@@ -318,14 +333,14 @@ public class MainActivity extends WearableActivity {
 
     private void setMetronomeMode(boolean usermode) {
         if (usermode) {
-            mTapPrompt.setText(R.string.usr_tempo);
+            mTapPrompt.setText("TAP to switch BPM");
             mUserTempos.setVisibility(View.VISIBLE);
-            tapBPMButton.setVisibility(View.GONE);
             selectUserTempo(1);
+            useTapForUserTempo();
         } else {
-            mTapPrompt.setText(R.string.tap_instr);
+            mTapPrompt.setText("Tap to set BPM");
             mUserTempos.setVisibility(View.GONE);
-            tapBPMButton.setVisibility(View.VISIBLE);
+            useTapForBpm();
         }
         userTempoMode = usermode;
     }
