@@ -117,41 +117,6 @@ public class SettingsActivity extends Activity {
         });
 
         initApi();
-
-        // this is a temporary gesture just for demonstrating two different actions with one image button
-        // swiping left triggers sending a message to wear, swiping right triggers switching activities
-//        btn_temp.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        x1 = event.getX();
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        x2 = event.getX();
-//                        float deltaX = x2 - x1;
-//                        if (Math.abs(deltaX) > MIN_DISTANCE) {
-//                            if (x1 > x2) {
-//                                // swipe left
-//                                Log.d(TAG, "swipe left!");
-//                                toggleUserTempos();
-//                            } else {
-//                                // swipe right
-//                                Intent i = new Intent(
-//                                        SettingsActivity.this,
-//                                        MainActivity.class);
-//                                startActivity(i);
-//                            }
-//
-//                        } else {
-//                            // consider as something else - a screen tap for example
-//                        }
-//                        break;
-//                }
-//
-//                return true;
-//            }
-//        });
     }
 
     private void enableComponents() {
