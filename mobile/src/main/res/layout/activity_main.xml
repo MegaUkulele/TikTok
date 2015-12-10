@@ -28,6 +28,7 @@
             android:text="Welcome to"
             android:textSize="30dp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_marginTop="40dp" />
@@ -37,6 +38,7 @@
             android:text="TikTok"
             android:textSize="45dp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal" />
         <TextView
@@ -45,6 +47,7 @@
             android:text="a Better Way to \n Keep the Beat!"
             android:textSize="30dp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:gravity="center_horizontal" />
         <Button
             android:layout_width="fill_parent"
