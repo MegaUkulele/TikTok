@@ -167,38 +167,38 @@ public class MainActivity extends WearableActivity {
             }
         });
 
-        mScreen.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        x1 = event.getX();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        x2 = event.getX();
-                        float deltaX = x2 - x1;
-                        if (Math.abs(deltaX) > MIN_DISTANCE) {
-                            if (x1 > x2) {
-                                // swipe left
-                                Intent i = new Intent(
-                                        MainActivity.this,
-                                        SettingsActivity.class);
-                                startActivity(i);
-                                //startActivityForResult(i, 1);
-                            } else {
-                                // swipe right
-                            }
-
-                        } else {
-                            // consider as something else - a screen tap for example
-                        }
-                        break;
-                }
-
-                return true;
-            }
-        });
+//        mScreen.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        x1 = event.getX();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        x2 = event.getX();
+//                        float deltaX = x2 - x1;
+//                        if (Math.abs(deltaX) > MIN_DISTANCE) {
+//                            if (x1 > x2) {
+//                                // swipe left
+//                                Intent i = new Intent(
+//                                        MainActivity.this,
+//                                        SettingsActivity.class);
+//                                startActivity(i);
+//                                //startActivityForResult(i, 1);
+//                            } else {
+//                                // swipe right
+//                            }
+//
+//                        } else {
+//                            // consider as something else - a screen tap for example
+//                        }
+//                        break;
+//                }
+//
+//                return true;
+//            }
+//        });
 
         mBPMPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
