@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Tik Tok</string>
+    <string name="app_name">TikTok</string>
     <string name="tap_instr">TAP to set BPM</string>
-    <string name="usr_tempo">User Tempos</string>
+    <string name="usr_tempo">Tap to switch BPM</string>
     <string name="BPM">BPM</string>
     <color name="watch_background">#303642</color>
     <string name="title_activity_settings">SettingsActivity</string>
