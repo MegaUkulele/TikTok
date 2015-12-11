@@ -1,4 +1,4 @@
-package com.megaukelele.tiktok;
+package com.megaukulele.tiktok;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,8 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.wearable.activity.WearableActivity;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -28,11 +26,6 @@ import java.util.ArrayList;
 public class MainActivity extends WearableActivity {
 
     private static final String TAG = "MainActivity";
-
-    //shared preferences
-    SharedPreferences pref;
-    //shared preferences listener
-    private SharedPreferences.OnSharedPreferenceChangeListener spListener;
 
     public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
     public static final String mUpdateUserTempos = "com.megaUkulele.broadcast.updateUserTempos";

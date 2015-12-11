@@ -1,8 +1,7 @@
-package com.megaukelele.tiktok;
+package com.megaukulele.tiktok;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.MessageApi;

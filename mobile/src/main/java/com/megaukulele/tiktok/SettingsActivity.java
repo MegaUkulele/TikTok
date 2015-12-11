@@ -1,4 +1,4 @@
-package com.megaukelele.tiktok;
+package com.megaukulele.tiktok;
 
 import android.app.Activity;
 import android.content.Context;
