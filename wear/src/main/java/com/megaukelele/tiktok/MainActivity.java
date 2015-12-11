@@ -29,11 +29,6 @@ public class MainActivity extends WearableActivity {
 
     private static final String TAG = "MainActivity";
 
-    //shared preferences
-    SharedPreferences pref;
-    //shared preferences listener
-    private SharedPreferences.OnSharedPreferenceChangeListener spListener;
-
     public static final String mToggleUserTempos = "com.megaUkulele.broadcast.toggleUserTempos";
     public static final String mUpdateUserTempos = "com.megaUkulele.broadcast.updateUserTempos";
     public static final String mUpdateBackgroundColor = "com.megaUkulele.broadcast.updateBackgroundColor";
