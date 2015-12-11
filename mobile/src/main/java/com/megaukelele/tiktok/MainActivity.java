@@ -1,4 +1,4 @@
-package com.megaukulele.tiktok;
+package com.megaukelele.tiktok;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,6 +25,18 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+//        ImageButton btn_temp=(ImageButton)findViewById(R.id.imagesettings);
+//        btn_temp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                Log.i("clicks", "You Clicked B1");
+//                Intent i=new Intent(
+//                        MainActivity.this,
+//                        SettingsActivity.class);
+//                startActivity(i);
+//            }
+//        });
     }
 
 }

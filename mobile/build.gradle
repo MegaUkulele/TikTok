@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.megaukulele.tiktok"
+        applicationId "com.megaukelele.tiktok"
         minSdkVersion 22
         targetSdkVersion 23
         versionCode 4

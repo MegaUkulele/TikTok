@@ -1,4 +1,4 @@
-package com.megaukulele.tiktok;
+package com.megaukelele.tiktok;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -1,4 +1,4 @@
-package com.megaukulele.tiktok;
+package com.megaukelele.tiktok;
 
 import org.junit.Test;
 
