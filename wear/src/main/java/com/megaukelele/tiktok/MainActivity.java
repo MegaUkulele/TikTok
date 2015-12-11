@@ -38,7 +38,7 @@ public class MainActivity extends WearableActivity {
     public static final String mUpdateUserTempos = "com.megaUkulele.broadcast.updateUserTempos";
     public static final String mUpdateBackgroundColor = "com.megaUkulele.broadcast.updateBackgroundColor";
 
-    private final long[] vibrationPattern = {0, 250};
+    private final long[] vibrationPattern = {0, 100};
     private final int repeateVibration = -1;
 
     private RelativeLayout mScreen;
@@ -54,6 +54,7 @@ public class MainActivity extends WearableActivity {
     static final int MIN_DISTANCE = 150;
     private IntentFilter mIntentFilter, mIntentColor;
     private Vibrator vibrator;
+    private long timeAdjustment = 25;
 
     private boolean vibrateOn = true; //vibrate flag
 
@@ -78,22 +79,6 @@ public class MainActivity extends WearableActivity {
         initializeViews();
         setListeners();
         setMetronomeMode(false);
-
-        //shared preferences
-        /*
-        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-
-        spListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                //Log.d(tag,"a setting was changed: " + key);
-                if(key.equals("vibrateON")) {
-                    //Log.d(TAG, "vibrate preference changed");
-                    vibrateOn = prefs.getBoolean("vibrateON", false);
-                }
-            }
-        };
-        pref.registerOnSharedPreferenceChangeListener(spListener);
-        */
 
         int bpm = mBPMPicker.getValue();
         setMetronomeTempo(bpm);
@@ -182,39 +167,6 @@ public class MainActivity extends WearableActivity {
 
         useTapForBpm();
 
-//        mScreen.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        x1 = event.getX();
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        x2 = event.getX();
-//                        float deltaX = x2 - x1;
-//                        if (Math.abs(deltaX) > MIN_DISTANCE) {
-//                            if (x1 > x2) {
-//                                // swipe left
-//                                Intent i = new Intent(
-//                                        MainActivity.this,
-//                                        SettingsActivity.class);
-//                                startActivity(i);
-//                                //startActivityForResult(i, 1);
-//                            } else {
-//                                // swipe right
-//                            }
-//
-//                        } else {
-//                            // consider as something else - a screen tap for example
-//                        }
-//                        break;
-//                }
-//
-//                return true;
-//            }
-//        });
-
         mBPMPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -257,7 +209,7 @@ public class MainActivity extends WearableActivity {
     }
 
     private void setGlowingRate(int bpm) {
-        long duration = (long) (1.0 / bpm * 60 * 0.5 * 1000);
+        long duration = (long) (1.0 / bpm * 60 * 0.5 * 1000 - timeAdjustment);
 
         growAnimation = new ScaleAnimation( 0.3f, 1.0f, 0.3f, 1.0f, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f );
         growAnimation.setDuration(duration);
